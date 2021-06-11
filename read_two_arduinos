@@ -1,0 +1,36 @@
+
+import time
+import serial
+
+# configure the serial connections (the parameters differs on the device you are connecting to)
+scale = serial.Serial(
+    port='COM7',
+    baudrate=9600,
+    timeout=0.5
+)
+
+pilot = serial.Serial(
+    port='COM5',
+    baudrate=9600,
+    timeout=0.5
+)
+
+scale.setRTS(True)
+scale.setRTS(False)
+pilot.setRTS(True)
+pilot.setRTS(False)
+
+
+def serial_read_line(obj):
+        wiadomosc = obj.readline()
+        if(wiadomosc != "b''"):
+                if(len(wiadomosc)!=0):
+                        print( wiadomosc)
+                        return(wiadomosc)
+
+while 1:
+    #print(scale.readline())
+    serial_read_line(scale)
+    #print(scale.read_until(b'\r\n'))
+    #print(scale.read_until(b'\r\n'))
+    serial_read_line(pilot)
